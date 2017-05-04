@@ -13,16 +13,19 @@ rawCapture = PiRGBArray(camera, size=(640,480))
 # allow the camera to warmup
 time.sleep(0.1)
 
+fourcc = cv2.VideoWriter_fourcc(*"XVID")
+out = cv2.VideoWriter('trial.avi', fourcc, camera.framerate, (640, 480))
+
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 	# grab the raw NumPy array representing the image, the initialize the timestamp
 	# and occupied/unoccupied text
 	image = frame.array
-	image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	ret, dst = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
+	# image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	# ret, image = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
 
-	cv2.imshow("Frame",dst)
-	time.sleep(0.5)
+	cv2.imshow("Frame",image)
+	# time.sleep(0.5)
 	key = cv2.waitKey(1) & 0xFF
 	rawCapture.truncate(0)
 	if key == ord("q"):
