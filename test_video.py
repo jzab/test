@@ -18,10 +18,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	# grab the raw NumPy array representing the image, the initialize the timestamp
 	# and occupied/unoccupied text
 	image = frame.array
-	image = cv2.cvt_color(image, cv2.COLOR_BGR2GRAY)
-	ret, dst = cv2.threshold(image, 0, 20)
+	image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	ret, dst = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
 
 	cv2.imshow("Frame",dst)
+	time.sleep(0.5)
 	key = cv2.waitKey(1) & 0xFF
 	rawCapture.truncate(0)
 	if key == ord("q"):
