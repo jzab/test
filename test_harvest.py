@@ -16,6 +16,12 @@ time.sleep(0.1)
 fourcc = cv2.VideoWriter_fourcc(*"XVID")
 out = cv2.VideoWriter('trial.avi', fourcc, camera.framerate, (640, 480))
 
+class FlatDetector:
+    def __init__(self):
+        pass
+    def detect(self, c):
+        shape =
+
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 	# grab the raw NumPy array representing the image, the initialize the timestamp
@@ -28,8 +34,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	# which corresponds to red-green variations within the image
 	mser = cv2.MSER_create()
 	regions = mser.detectRegions(a, None)
-	hulls = [cv2.convexHull(p.reshape(-1,1,2)) for p in regions]
-	cv2.polylines(image, hulls, 1, (0, 255, 0))
+	# hulls = [cv2.convexHull(p.reshape(-1,1,2)) for p in regions]
+	# cv2.polylines(image, hulls, 1, (0, 255, 0))
+    cv2.drawContours(image, regions, -1, (0, 255, 0))
 
 
 	# image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
