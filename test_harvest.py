@@ -33,7 +33,7 @@ class FlatDetector:
         rect = cv2.minAreaRect(region)
         if area >= flatArea and (1.5<=aspect<=2.5):
             found = True
-        return found
+        return found, area
 
 flatFinder = FlatDetector()
 
@@ -54,7 +54,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # cv2.drawContours(image, regions, -1, (0, 255, 0))
 
     for region in regions:
-        if flatFinder.detect(region):
+        found, area = flatFinder.detect(region)
+        if found:
             cv2.drawContours(a, [region], 0, (0, 255, 0), 2)
             cv2.putText(a, str(area), (x,y), font, 3, (255,0,0), 2)
 
