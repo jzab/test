@@ -14,7 +14,7 @@ rawCapture = PiRGBArray(camera, size=(640,480))
 time.sleep(0.1)
 
 # define global variables
-flatArea = 10
+flatArea = 500
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 fourcc = cv2.VideoWriter_fourcc(*"XVID")
