@@ -30,9 +30,9 @@ class FlatDetector:
         x,y,w,h = bbox
         aspect = float(w)/h
         rect = cv2.minAreaRect(region)
-        approx = cv2.approxPolyDP(region,0.01*cv2.arcLength(region,True),True)
+        approx = cv2.approxPolyDP(region,0.1*cv2.arcLength(region,True),True)
         area = cv2.contourArea(region)
-        print(area, approx)
+        print(area, len(approx))
         if area >= flatArea and len(approx)==4:
             found = True
         return found, area, x, y, approx
