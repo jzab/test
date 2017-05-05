@@ -67,10 +67,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     for region in regions:
         print(region)
         kernel = np.ones((11,11),np.uint8)
-        region = cv2.morphologyEx([region], cv2.MORPH_OPEN, kernel)
+        region = cv2.morphologyEx([[r] for r in region], cv2.MORPH_OPEN, kernel)
         found, area, x, y, approx = flatFinder.detect(region)
         if found:
-            cv2.drawContours(a, [[r] for r in region], 0, (0, 255, 0), 2)
+            cv2.drawContours(a, [region], 0, (0, 255, 0), 2)
             cv2.putText(a, str(area), (x,y), font, 1, (255,0,0), 2)
             break
 
