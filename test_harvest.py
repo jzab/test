@@ -52,8 +52,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     mser = cv2.MSER_create()
     regions = mser.detectRegions(a, None)
 
-    ret_A, thresh_A = cv2.threshold(a, 20, 110)
-    ret_G, thresh_G = cv2.threshold(g, 20, 255)
+    ret_A, thresh_A = cv2.threshold(a, 20, 110, cv2.THRESH_BINARY)
+    ret_G, thresh_G = cv2.threshold(g, 20, 255, cv2.THRESH_BINARY)
 
     # hulls = [cv2.convexHull(p.reshape(-1,1,2)) for p in regions]
     # cv2.polylines(image, hulls, 1, (0, 255, 0))
