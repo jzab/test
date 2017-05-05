@@ -20,7 +20,7 @@ class FlatDetector:
     def __init__(self):
         pass
     def detect(self, c):
-        shape =
+        shape = a
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
