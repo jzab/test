@@ -25,6 +25,8 @@ class FlatDetector:
     def detect(self, c):
         pass
 
+
+
 flatFinder = FlatDetector()
 
 # capture frames from the camera
@@ -32,3 +34,24 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # grab the raw NumPy array representing the image, the initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
+    lab = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
+
+    Z = image.reshape((-1,3))
+    # convert to np.float32
+    Z = np.float32(Z)
+
+    # define criteria, number of clusters (K) and apply kmeans segmentation
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+    K = 4
+    ret, label, center = cv2.kmeans(Z,K,None,criteria)
+
+    center = np.uint8(center)
+    res = center[label.flatten()]
+    res2 = res.reshape((image.shape))
+
+    cv2.imshow("Frame",res2)
+    # time.sleep(0.5)
+    key = cv2.waitKey(1) & 0xFF
+    rawCapture.truncate(0)
+    if key == ord("q"):
+        break
