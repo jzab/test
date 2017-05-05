@@ -21,8 +21,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	# grab the raw NumPy array representing the image, the initialize the timestamp
 	# and occupied/unoccupied text
 	image = frame.array
-	image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
-	l,a,b = cv2.split(image)
+	lab = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
+	l,a,b = cv2.split(lab)
 
 	# segment stable regions in the a-channel
 	# which corresponds to red-green variations within the image

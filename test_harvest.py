@@ -67,14 +67,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     for region in regions:
         found, area, x, y, approx = flatFinder.detect(region)
         if found:
-            cv2.drawContours(a, [region], 0, (0, 255, 0), 2)
-            cv2.putText(a, str(area), (x,y), font, 1, (255,0,0), 2)
+            cv2.drawContours(image, [region], 0, (0, 255, 0), 2)
+            cv2.putText(image, str(area), (x,y), font, 1, (255,0,0), 2)
             break
 
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # ret, image = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
 
-    cv2.imshow("Frame",a)
+    cv2.imshow("Frame",image)
     # time.sleep(0.5)
     key = cv2.waitKey(1) & 0xFF
     rawCapture.truncate(0)
