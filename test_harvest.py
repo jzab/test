@@ -62,6 +62,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # cv2.drawContours(image, regions, -1, (0, 255, 0))
 
     for region in regions:
+        kernel = np.ones((11,11),np.uint8)
+        region = cv2.morphologyEx(region, cv2.MORPH_OPEN)
         found, area, x, y, approx = flatFinder.detect(region)
         if found:
             cv2.drawContours(a, [region], 0, (0, 255, 0), 2)
