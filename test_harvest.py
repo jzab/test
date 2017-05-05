@@ -51,7 +51,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # segment stable regions in the a-channel
     # which corresponds to red-green variations within the image
-    mser = cv2.MSER_create(10)
+    mser = cv2.MSER_create()
     regions = mser.detectRegions(a, None)
     # img, cnts, hierarchy = cv2.findContours(a, 1, 2)
     # print(cnts[0])
