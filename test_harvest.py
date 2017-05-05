@@ -2,6 +2,7 @@
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+import numpy as np
 import cv2
 
 # initialize the camera and grab a reference to the raw camera capture
