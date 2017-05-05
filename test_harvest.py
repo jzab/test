@@ -13,20 +13,30 @@ rawCapture = PiRGBArray(camera, size=(640,480))
 # allow the camera to warmup
 time.sleep(0.1)
 
+# define global variables
+flatArea = 2000
+font = cv2.FONT_HERSHEY_SIMPLEX
+
 fourcc = cv2.VideoWriter_fourcc(*"XVID")
 out = cv2.VideoWriter('trial.avi', fourcc, camera.framerate, (640, 480))
+
 
 class FlatDetector:
     def __init__(self):
         pass
     def detect(self, c):
+        found = False
         area = cv2.contourArea(region)
         bbox = cv2.boundingRect(c)
-        return area, bbox
+        x,y,w,h = bbox
+        aspect = float(w)/h
+        rect = cv2.minAreaRect(region)
+        if area >= flatArea and (1.5<=aspect<=2.5):
+            found = True
+        return found
 
 flatFinder = FlatDetector()
-flatArea = 2000
-font = cv2.FONT_HERSHEY_SIMPLEX
+
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, the initialize the timestamp
@@ -44,19 +54,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # cv2.drawContours(image, regions, -1, (0, 255, 0))
 
     for region in regions:
-        area, bbox = flatFinder.detect(region)
-        x, y, w, h = bbox
-        aspect = float(w)/h
-        if area >= flatArea and (1.5<=aspect<=2.5):
-            cv2.drawContours(image, [region], 0, (0, 255, 0))
-            cv2.putText(image, str(area), (x,y), font, 3, (255,0,0), 2)
-
-
+        if flatFinder.detect(region):
+            cv2.drawContours(a, [region], 0, (0, 255, 0), 2)
+            cv2.putText(a, str(area), (x,y), font, 3, (255,0,0), 2)
 
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # ret, image = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
 
-    cv2.imshow("Frame",image)
+    cv2.imshow("Frame",a)
     # time.sleep(0.5)
     key = cv2.waitKey(1) & 0xFF
     rawCapture.truncate(0)
