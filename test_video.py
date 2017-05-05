@@ -21,6 +21,17 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	# grab the raw NumPy array representing the image, the initialize the timestamp
 	# and occupied/unoccupied text
 	image = frame.array
+	image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
+	l,a,b = cv2.split(image)
+
+	# segment stable regions in the a-channel
+	# which corresponds to red-green variations within the image
+	mser = cv2.MSER_create()
+	regions = mser.detectRegions(a, None)
+	hulls = [cv2.convexHull(p.reshape(-1,1,2)) for p in regions]
+	cv2.polylines(image, hulls, 1, (0, 255, 0))
+
+
 	# image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	# ret, image = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
 
