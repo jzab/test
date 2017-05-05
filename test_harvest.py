@@ -44,7 +44,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 	for region in regions:
 		 area, bbox = flatFinder.detect(region)
-	cv2.drawContours(image, regions, -1, (0, 255, 0))
+         x, y, w, h = bbox
+         aspect = float(w)/h
+         if area >= flat_area and (1.9<=aspect<=2.1):
+             cv2.drawContours(image, [region], 0, (0, 255, 0))
 
 
 	# image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
