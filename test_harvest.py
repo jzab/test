@@ -40,13 +40,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	regions = mser.detectRegions(a, None)
 	# hulls = [cv2.convexHull(p.reshape(-1,1,2)) for p in regions]
 	# cv2.polylines(image, hulls, 1, (0, 255, 0))
-<<<<<<< HEAD
 	cv2.drawContours(image, regions, -1, (0, 255, 0))
-=======
-    for region in regions:
-        area, bbox = flatFinder.detect(region)
-    cv2.drawContours(image, regions, -1, (0, 255, 0))
->>>>>>> bb94592a68d18ace13152558495b5917dcbfd976
+
+	for region in regions:
+		 area, bbox = flatFinder.detect(region)
+	cv2.drawContours(image, regions, -1, (0, 255, 0))
 
 
 	# image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
