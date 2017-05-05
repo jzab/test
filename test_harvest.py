@@ -56,9 +56,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     img, cnts, hierarchy = cv2.findContours(a, 1, 2)
     print(cnts[0])
 
-    ret_A, thresh_A = cv2.threshold(a, 20, 110, cv2.THRESH_BINARY)
-    ret_G, thresh_G = cv2.threshold(g, 20, 255, cv2.THRESH_BINARY)
-    regionGreen = cv2.bitwise_and(thresh_A, thresh_G)
+    # ret_A, thresh_A = cv2.threshold(a, 20, 110, cv2.THRESH_BINARY)
+    # ret_G, thresh_G = cv2.threshold(g, 20, 255, cv2.THRESH_BINARY)
+    # regionGreen = cv2.bitwise_and(thresh_A, thresh_G)
     # regionIntersection = cv2.bitwise_and()
     # hulls = [cv2.convexHull(p.reshape(-1,1,2)) for p in regions]
     # cv2.polylines(image, hulls, 1, (0, 255, 0))
