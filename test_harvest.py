@@ -33,7 +33,7 @@ class FlatDetector:
         approx = cv2.approxPolyDP(region,0.1*cv2.arcLength(region,True),True)
         area = cv2.contourArea(region)
         print(area, len(approx))
-        if area >= flatArea and len(approx)==4:
+        if area >= flatArea:
             found = True
         return found, area, x, y, approx
 
