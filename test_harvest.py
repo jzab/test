@@ -26,14 +26,14 @@ class FlatDetector:
     def __init__(self):
         pass
     def detect(self, c):
-        found = False
+        found = True
         bbox = cv2.boundingRect(c)
         x,y,w,h = bbox
         aspect = float(w)/h
-        rect = cv2.minAreaRect(region)
+        # rect = cv2.minAreaRect(region)
         approx = cv2.approxPolyDP(region,0.1*cv2.arcLength(region,True),True)
         area = cv2.contourArea(region)
-        print(area, len(approx))
+        # print(area, len(approx))
         if area >= flatArea:
             found = True
         return found, area, x, y, approx
