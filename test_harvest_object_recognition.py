@@ -43,7 +43,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # define criteria, number of clusters (K) and apply kmeans segmentation
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
     K = 4
-    ret, label, center = cv2.kmeans(Z,K,None,criteria)
+    ret, label, center = cv2.kmeans(Z,K,None,criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
 
     center = np.uint8(center)
     res = center[label.flatten()]
