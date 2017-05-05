@@ -61,9 +61,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # cv2.drawContours(image, regions, -1, (0, 255, 0))
 
     for region in regions:
-        found, area, x, y = flatFinder.detect(region)
+        found, area, x, y, approx = flatFinder.detect(region)
         if found:
-            cv2.drawContours(a, [region], 0, (0, 255, 0), 2)
+            cv2.drawContours(a, [approx], 0, (0, 255, 0), 2)
             cv2.putText(a, str(area), (x,y), font, 1, (255,0,0), 2)
             break
 
