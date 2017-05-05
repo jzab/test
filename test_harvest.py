@@ -47,7 +47,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         area, bbox = flatFinder.detect(region)
         x, y, w, h = bbox
         aspect = float(w)/h
-        if area >= flatArea and (1.9<=aspect<=2.1):
+        if area >= flatArea and (1.5<=aspect<=2.5):
             cv2.drawContours(image, [region], 0, (0, 255, 0))
             cv2.putText(image, str(area), (x,y), font, 3, (255,0,0), 2)
 
