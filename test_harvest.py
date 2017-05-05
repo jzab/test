@@ -26,6 +26,7 @@ class FlatDetector:
 
 flatFinder = FlatDetector()
 flatArea = 2000
+font = cv2.FONT_HERSHEY_SIMPLEX
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, the initialize the timestamp
@@ -40,7 +41,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     regions = mser.detectRegions(a, None)
     # hulls = [cv2.convexHull(p.reshape(-1,1,2)) for p in regions]
     # cv2.polylines(image, hulls, 1, (0, 255, 0))
-    cv2.drawContours(image, regions, -1, (0, 255, 0))
+    # cv2.drawContours(image, regions, -1, (0, 255, 0))
 
     for region in regions:
         area, bbox = flatFinder.detect(region)
@@ -48,7 +49,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         aspect = float(w)/h
         if area >= flatArea and (1.9<=aspect<=2.1):
             cv2.drawContours(image, [region], 0, (0, 255, 0))
-            cv2.text(str(area), region[0])
+            cv2.putText(image, str(area), (x,y), font, 3, (255,0,0), 2)
 
 
 
