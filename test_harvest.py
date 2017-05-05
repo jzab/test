@@ -58,6 +58,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         if found:
             cv2.drawContours(a, [region], 0, (0, 255, 0), 2)
             cv2.putText(a, str(area), (x,y), font, 1, (255,0,0), 2)
+            break
 
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # ret, image = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
