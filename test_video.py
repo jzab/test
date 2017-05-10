@@ -2,7 +2,19 @@
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+import
 import cv2
+import argparse
+
+# construct the argument parse and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-v", "--video",
+    help = "path to the (optional) video file")
+ap.add_argument("-b", "--buffer",
+    type=int, defaul=64, help="max buffer size")
+ap.add_argument("-o", "--outfile",
+	type=str, default='trial.avi', help="video file for output")
+args = vars(ap.parse_args())
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
@@ -13,8 +25,9 @@ rawCapture = PiRGBArray(camera, size=(640,480))
 # allow the camera to warmup
 time.sleep(0.1)
 
+outfile = args['outfile']
 fourcc = cv2.VideoWriter_fourcc(*"XVID")
-out = cv2.VideoWriter('trial.avi', fourcc, camera.framerate, (640, 480))
+out = cv2.VideoWriter(outfile, fourcc, camera.framerate, (640, 480))
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -36,8 +49,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	# ret, image = cv2.threshold(image, 20, 80,cv2.THRESH_BINARY)
 
 	cv2.imshow("Frame",image)
+	data = np.array([time.now(), ])
 	# time.sleep(0.5)
 	key = cv2.waitKey(1) & 0xFF
 	rawCapture.truncate(0)
 	if key == ord("q"):
 		break
+	time.sleep(5)

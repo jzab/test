@@ -55,3 +55,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     rawCapture.truncate(0)
     if key == ord("q"):
         break
+
+
+cv2.destroyAllWindows()
