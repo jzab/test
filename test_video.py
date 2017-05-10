@@ -11,7 +11,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video",
     help = "path to the (optional) video file")
 ap.add_argument("-b", "--buffer",
-    type=int, defaul=64, help="max buffer size")
+    type=int, default=64, help="max buffer size")
 ap.add_argument("-o", "--outfile",
 	type=str, default='trial.avi', help="video file for output")
 args = vars(ap.parse_args())
